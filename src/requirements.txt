@@ -1,0 +1,10 @@
+numpy
+matplotlib
+opencv-python
+ultralytics
+gunicorn
+pdf2image
+nltk
+transformers
+scikit-learn
+pytesseract
