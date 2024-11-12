@@ -155,17 +155,19 @@ dmypy.json
 cython_debug/
 
 
-# data for test folder
+# excluded folder
 src/test
+src/model
+src/design
 
 # some python file
 src/huawei_boxes.py
 
-# model
-src/model
 
 #python environment
 src/talentmatcher
+
+
 
 
 # .jpg file
