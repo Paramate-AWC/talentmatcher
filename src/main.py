@@ -9,12 +9,19 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from utils import clean_text
 import cv2
+from ingest.obs_ingest import  download_from_obs
 
 
 class Pipeline:
 
     def __init__(self, file_path):
         self.file_path = file_path
+
+    ###### Retrieve CV as pdf file from Object Storage Service ########
+        # file path or file
+        # self.file = ....
+
+    ###################################################################
         
     @staticmethod
     def sim_score(jd_text, exp_text):
@@ -26,48 +33,48 @@ class Pipeline:
         return score[0][0]
         
 
-    def main(self):
-        # Object detection
-        model = YOLO('./model/best.pt')
+    # def main(self):
+    #     # Object detection
+    #     model = YOLO('./model/best.pt')
 
-        # convert pdf to images
-        images = convert_from_path(self.file_path)
-        exp_texts = []
-        for i, image in enumerate(images):
-            print(f'Start Object Detection on Page {i+1}')
-            image = np.array(image)
-            crop_images = obj_det_inference(model, image)
+    #     # convert pdf to images
+    #     images = convert_from_path(self.file_path)
+    #     exp_texts = []
+    #     for i, image in enumerate(images):
+    #         print(f'Start Object Detection on Page {i+1}')
+    #         image = np.array(image)
+    #         crop_images = obj_det_inference(model, image)
 
-            x1, y1, x2, y2 = crop_images['boxes'][idx]
-            # perform ocr
-            print('Perform OCR')
-            for idx,crop in enumerate(crop_images['result']):
-                # print(crop)
-                # print(type(crop))
-                # cv2.imwrite('result.jpg', crop)
-                text = run_ocr(crop, lang='eng')
+    #         x1, y1, x2, y2 = crop_images['boxes'][idx]
+    #         # perform ocr
+    #         print('Perform OCR')
+    #         for idx,crop in enumerate(crop_images['result']):
+    #             # print(crop)
+    #             # print(type(crop))
+    #             # cv2.imwrite('result.jpg', crop)
+    #             text = run_ocr(crop, lang='eng')
 
 
-                '''
-                class list:
-                    'certification',
-                    'education',
-                    'experience',
-                    'others',
-                    'personal',
-                    'preface',
-                    'skill'
-                '''
+    #             '''
+    #             class list:
+    #                 'certification',
+    #                 'education',
+    #                 'experience',
+    #                 'others',
+    #                 'personal',
+    #                 'preface',
+    #                 'skill'
+    #             '''
 
-                res_class = cls_inference(text)
+    #             res_class = cls_inference(text)
 
-                if res_class == 'experience':
-                    exp_texts.append(text)
-                    cv2.putText(image, res_class, )
+    #             if res_class == 'experience':
+    #                 exp_texts.append(text)
+    #                 cv2.putText(image, res_class, )
 
-        res_text = ' '.join(exp_texts)
+    #     res_text = ' '.join(exp_texts)
                 
-        return res_text
+    #     return res_text
     
     def _main(self):
         # Object detection
@@ -113,6 +120,10 @@ class Pipeline:
 
         res_text = ' '.join(exp_texts)
         return res_text
+    
+    # Function for push data to Database
+    # def push_data(self):
+    #   pass 
 
 
 
