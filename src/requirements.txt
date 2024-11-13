@@ -10,3 +10,5 @@ scikit-learn
 pytesseract
 psycopg2-binary
 boto3
+huaweicloudsdkcore
+huaweicloudsdkocr

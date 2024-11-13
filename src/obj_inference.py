@@ -13,7 +13,7 @@ def obj_det_inference(model, image, show=None):
     img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)  # Convert BGR to RGB for matplotlib
 
     # Prepare to store cropped images
-    cropped_images = []
+    # cropped_images = []
     box_list = []
     # Draw the bounding boxes on the image
     for result in results:
@@ -26,8 +26,8 @@ def obj_det_inference(model, image, show=None):
             cv2.rectangle(img, (x1, y1), (x2, y2), (255, 0, 0), 2)
             cv2.putText(img, f'{conf:.2f}', (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
 
-            cropped_img = img[y1:y2, x1:x2]
-            cropped_images.append(cropped_img)
+            # cropped_img = img[y1:y2, x1:x2]
+            # cropped_images.append(cropped_img)
             box_coor = (x1,y1,x2,y2)
             box_list.append(box_coor)
 
@@ -37,14 +37,15 @@ def obj_det_inference(model, image, show=None):
         cv2.waitKey()
         cv2.destroyAllWindows()
 
-    return dict({'result':cropped_images,
-                 'boxes':box_list})
+    return dict({
+                 'boxes':box_list
+                 })
 
 if __name__ == "__main__":
 
     model = YOLO('./model/best.pt')
 
-    image_path = '../test/example_im.png'
+    image_path = './test/5_page_1.jpg'
     img = cv2.imread(image_path)
 
     print('start inference')
