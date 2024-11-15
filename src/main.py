@@ -9,13 +9,14 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from utils import clean_text
 import cv2
-from ingest.obs_ingest import  download_from_obs
+# from ingest.obs_ingest import  download_from_obs
 
 
 class Pipeline:
 
-    def __init__(self, file_path):
+    def __init__(self, file_path, job_description):
         self.file_path = file_path
+        self.job_description = job_description
 
     ###### Retrieve CV as pdf file from Object Storage Service ########
         # file path or file

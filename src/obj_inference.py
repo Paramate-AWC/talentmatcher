@@ -49,6 +49,6 @@ if __name__ == "__main__":
     img = cv2.imread(image_path)
 
     print('start inference')
-    result = obj_det_inference(model, image=img, show=True)
+    result = obj_det_inference(model, image=img, show=False)
     print(result['boxes'])
 
